@@ -1,0 +1,17 @@
+package io.github.akshatkumargupta07.consistenthashing;
+
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+@AutoConfiguration
+@EnableConfigurationProperties(ConsistentHashingProperties.class)
+public class ConsistentHashingAutoConfiguration {
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ConsistentHashRing createHashRing(ConsistentHashingProperties consistentHashingProperties){
+        return new ConsistentHashRing(consistentHashingProperties.getNodes() , consistentHashingProperties.getVirtualNodes());
+    }
+}
