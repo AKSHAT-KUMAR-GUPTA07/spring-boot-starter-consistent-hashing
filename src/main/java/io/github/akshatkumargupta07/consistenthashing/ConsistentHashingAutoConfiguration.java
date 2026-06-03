@@ -11,7 +11,13 @@ public class ConsistentHashingAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ConsistentHashRing createHashRing(ConsistentHashingProperties consistentHashingProperties){
-        return new ConsistentHashRing(consistentHashingProperties.getNodes() , consistentHashingProperties.getVirtualNodes());
+    public ConsistentHashRing createHashRing(ConsistentHashingProperties consistentHashingProperties, Hasher hasher){
+        return new ConsistentHashRing(consistentHashingProperties.getNodes() , consistentHashingProperties.getVirtualNodes(), hasher);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public Hasher defaultHasher(){
+        return new Md5Hasher();
     }
 }

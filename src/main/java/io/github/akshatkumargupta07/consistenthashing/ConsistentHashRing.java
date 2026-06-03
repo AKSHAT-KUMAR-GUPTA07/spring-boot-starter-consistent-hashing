@@ -9,8 +9,10 @@ import java.util.TreeMap;
 public class ConsistentHashRing {
 
     private final TreeMap<Long, Node> ring = new TreeMap<>();
+    private final Hasher hasher;
 
-    public ConsistentHashRing(List<Node> nodes , int virtualNodes){
+    public ConsistentHashRing(List<Node> nodes , int virtualNodes, Hasher hasher){
+        this.hasher=hasher;
         for (Node node: nodes){
             for(int i=0 ; i<virtualNodes; i++){
                 long position = hash(node.id() + "-vnode-" + i);
@@ -30,16 +32,6 @@ public class ConsistentHashRing {
     }
 
     private long hash(String input){
-        try{
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digest = md.digest(input.getBytes());
-            long h=0;
-            for(int i=0 ; i<8; i++){
-                h = (h << 8) | (digest[i] & 0xFF );
-            }
-            return h;
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("MD5 not available", e);
-        }
+        return hasher.hash(input);
     }
 }
