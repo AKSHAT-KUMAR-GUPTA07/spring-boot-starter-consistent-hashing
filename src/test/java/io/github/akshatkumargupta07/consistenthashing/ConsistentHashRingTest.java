@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConsistentHashRingTest {
 
@@ -26,6 +27,17 @@ public class ConsistentHashRingTest {
 
         counts.forEach((id, count) ->
                 System.out.println(id + " -> " + count + " keys"));
+
+        double totalWeight = nodes.stream().mapToDouble(Node::multiplier).sum();
+        double chiSquare = 0;
+        for (Node node : nodes) {
+            double expected = 10000 * (node.multiplier() / totalWeight);
+            double observed = counts.getOrDefault(node.id(), 0);
+            chiSquare += Math.pow(observed - expected, 2) / expected;
+        }
+        System.out.println("Chi-square: " + chiSquare);
+        assertTrue(chiSquare < 100, "Distribution too skewed: " + chiSquare);
+
     }
 
 }
