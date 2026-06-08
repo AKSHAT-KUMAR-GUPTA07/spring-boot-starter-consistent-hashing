@@ -20,4 +20,9 @@ public class ConsistentHashingAutoConfiguration {
     public Hasher defaultHasher(){
         return new Md5Hasher();
     }
+
+    @Bean
+    public ConsistentHashRoutingAspect consistentHashRoutingAspect(ConsistentHashRing consistentHashRing){
+        return new ConsistentHashRoutingAspect(consistentHashRing);
+    }
 }
