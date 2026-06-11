@@ -6,6 +6,15 @@ import java.util.TreeMap;
 
 public class ConsistentHashRing {
 
+    /*
+     * volatile is safe here despite SonarQube java:S3077 (volatile on a mutable
+     * object only publishes the reference, not its contents). This ring is
+     * copy-on-write: the live TreeMap is never mutated — updateNodes() builds a
+     * new map and swaps this reference, which is the only thing that changes, and
+     * volatile publishes that swap to lock-free route() readers.
+     * Invariant: never put()/remove() on the live map; always build-new-and-swap.
+     */
+    @SuppressWarnings("java:S3077")
     private volatile TreeMap<Long, Node> ring = new TreeMap<>();
     private final Hasher hasher;
     private final int virtualNodes;
