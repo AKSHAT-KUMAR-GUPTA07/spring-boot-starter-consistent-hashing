@@ -6,15 +6,21 @@ import java.util.TreeMap;
 
 public class ConsistentHashRing {
 
-    private final TreeMap<Long, Node> ring = new TreeMap<>();
+    private volatile TreeMap<Long, Node> ring = new TreeMap<>();
     private final Hasher hasher;
+    private final int virtualNodes;
 
     public ConsistentHashRing(List<Node> nodes , int virtualNodes, Hasher hasher){
         this.hasher=hasher;
-        for (Node node: nodes){
-            for(int i=0 ; i<  (int) (virtualNodes *  Math.ceil(node.multiplier()) ); i++){
+        this.virtualNodes=virtualNodes;
+        hashRing(nodes, ring);
+    }
+
+    private void hashRing(List<Node> nodes, TreeMap<Long, Node> targetRing) {
+        for (Node node : nodes) {
+            for (int i = 0; i < (int) (virtualNodes * Math.ceil(node.multiplier())); i++) {
                 long position = hash(node.id() + "-vnode-" + i);
-                ring.put(position , node);
+                targetRing.put(position, node);
             }
         }
     }
@@ -31,5 +37,11 @@ public class ConsistentHashRing {
 
     private long hash(String input){
         return hasher.hash(input);
+    }
+
+    public synchronized void updateNodes(List<Node> nodes){
+        TreeMap<Long, Node> newRing = new TreeMap<>();
+        hashRing(nodes, newRing);
+        ring = newRing;
     }
 }
