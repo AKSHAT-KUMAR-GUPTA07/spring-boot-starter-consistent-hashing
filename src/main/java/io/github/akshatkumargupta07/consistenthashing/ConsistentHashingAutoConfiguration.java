@@ -1,6 +1,8 @@
 package io.github.akshatkumargupta07.consistenthashing;
 
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,5 +32,11 @@ public class ConsistentHashingAutoConfiguration {
     @ConditionalOnMissingBean
     public NodeProvider propertiesNodeProvider(ConsistentHashingProperties consistentHashingProperties){
         return new PropertiesNodeProvider(consistentHashingProperties);
+    }
+
+    @Bean
+    @ConditionalOnClass(Endpoint.class)
+    public ConsistentHashEndpoint consistentHashEndpoint(ConsistentHashRing consistentHashRing){
+        return new ConsistentHashEndpoint(consistentHashRing);
     }
 }

@@ -1,8 +1,6 @@
 package io.github.akshatkumargupta07.consistenthashing;
 
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class ConsistentHashRing {
 
@@ -35,13 +33,16 @@ public class ConsistentHashRing {
     }
 
     public Node route(String key){
-        if(ring.isEmpty()){
+        TreeMap<Long, Node> currentRing = ring;
+        if(currentRing.isEmpty()){
             throw new IllegalStateException("No nodes in the ring");
         }
         long hash = hash(key);
-        SortedMap<Long , Node> tail = ring.tailMap(hash);
-        Long position = tail.isEmpty() ? ring.firstKey() : tail.firstKey();
-        return ring.get(position);
+        var entry = currentRing.ceilingEntry(hash);
+        if(entry == null){
+            entry = currentRing.firstEntry();
+        }
+        return entry.getValue();
     }
 
     private long hash(String input){
@@ -52,5 +53,9 @@ public class ConsistentHashRing {
         TreeMap<Long, Node> newRing = new TreeMap<>();
         hashRing(nodes, newRing);
         ring = newRing;
+    }
+
+    public Set<Node> getNodes(){
+        return new HashSet<>(ring.values());
     }
 }
