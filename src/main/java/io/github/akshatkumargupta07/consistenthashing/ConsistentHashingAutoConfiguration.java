@@ -11,8 +11,8 @@ public class ConsistentHashingAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ConsistentHashRing createHashRing(ConsistentHashingProperties consistentHashingProperties, Hasher hasher){
-        return new ConsistentHashRing(consistentHashingProperties.getNodes() , consistentHashingProperties.getVirtualNodes(), hasher);
+    public ConsistentHashRing createHashRing(NodeProvider nodeProvider, ConsistentHashingProperties consistentHashingProperties, Hasher hasher){
+        return new ConsistentHashRing(nodeProvider.getNodes() , consistentHashingProperties.getVirtualNodes(), hasher);
     }
 
     @Bean
@@ -24,5 +24,11 @@ public class ConsistentHashingAutoConfiguration {
     @Bean
     public ConsistentHashRoutingAspect consistentHashRoutingAspect(ConsistentHashRing consistentHashRing){
         return new ConsistentHashRoutingAspect(consistentHashRing);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public NodeProvider propertiesNodeProvider(ConsistentHashingProperties consistentHashingProperties){
+        return new PropertiesNodeProvider(consistentHashingProperties);
     }
 }

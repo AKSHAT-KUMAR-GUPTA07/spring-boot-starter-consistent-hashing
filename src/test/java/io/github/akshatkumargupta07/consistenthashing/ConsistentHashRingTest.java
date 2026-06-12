@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ConsistentHashRingTest {
+class ConsistentHashRingTest {
 
     List<Node> nodes = List.of(
             new Node("cache1", "redis1", 7000, 1.0),
