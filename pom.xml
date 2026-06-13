@@ -16,7 +16,7 @@
 
 	<groupId>io.github.akshat-kumar-gupta07</groupId>
 	<artifactId>consistent-hashing-spring-boot-starter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.2.0</version>
 	<name>consistent-hashing-spring-boot-starter</name>
 	<description>Client-side consistent-hash sharding and routing for Spring Boot 3</description>
 	<url/>
