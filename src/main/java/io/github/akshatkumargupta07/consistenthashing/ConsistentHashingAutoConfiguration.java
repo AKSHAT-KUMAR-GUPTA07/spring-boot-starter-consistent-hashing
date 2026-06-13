@@ -1,6 +1,8 @@
 package io.github.akshatkumargupta07.consistenthashing;
 
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +13,8 @@ public class ConsistentHashingAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ConsistentHashRing createHashRing(ConsistentHashingProperties consistentHashingProperties, Hasher hasher){
-        return new ConsistentHashRing(consistentHashingProperties.getNodes() , consistentHashingProperties.getVirtualNodes(), hasher);
+    public ConsistentHashRing createHashRing(NodeProvider nodeProvider, ConsistentHashingProperties consistentHashingProperties, Hasher hasher){
+        return new ConsistentHashRing(nodeProvider.getNodes() , consistentHashingProperties.getVirtualNodes(), hasher);
     }
 
     @Bean
@@ -24,5 +26,17 @@ public class ConsistentHashingAutoConfiguration {
     @Bean
     public ConsistentHashRoutingAspect consistentHashRoutingAspect(ConsistentHashRing consistentHashRing){
         return new ConsistentHashRoutingAspect(consistentHashRing);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public NodeProvider propertiesNodeProvider(ConsistentHashingProperties consistentHashingProperties){
+        return new PropertiesNodeProvider(consistentHashingProperties);
+    }
+
+    @Bean
+    @ConditionalOnClass(Endpoint.class)
+    public ConsistentHashEndpoint consistentHashEndpoint(ConsistentHashRing consistentHashRing){
+        return new ConsistentHashEndpoint(consistentHashRing);
     }
 }

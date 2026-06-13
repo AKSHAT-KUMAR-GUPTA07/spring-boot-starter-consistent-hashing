@@ -16,7 +16,7 @@
 
 	<groupId>io.github.akshat-kumar-gupta07</groupId>
 	<artifactId>consistent-hashing-spring-boot-starter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.2.0</version>
 	<name>consistent-hashing-spring-boot-starter</name>
 	<description>Client-side consistent-hash sharding and routing for Spring Boot 3</description>
 	<url/>
@@ -54,6 +54,24 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-actuator</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- JMH — microbenchmark harness, test-scope only (never ships to consumers) -->
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>1.37</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>1.37</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -80,6 +98,12 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
