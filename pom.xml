@@ -59,6 +59,19 @@
 			<artifactId>spring-boot-actuator</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- JMH — microbenchmark harness, test-scope only (never ships to consumers) -->
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>1.37</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>1.37</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
