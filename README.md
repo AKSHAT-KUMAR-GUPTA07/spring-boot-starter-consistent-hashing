@@ -2,7 +2,7 @@
 
 Client-side consistent-hash sharding and routing for Spring Boot 3 — drop-in starter, zero boilerplate.
 
-![Version](https://img.shields.io/badge/version-0.2.0-blue)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.akshat-kumar-gupta07/consistent-hashing-spring-boot-starter?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.akshat-kumar-gupta07/consistent-hashing-spring-boot-starter)
 ![Java](https://img.shields.io/badge/Java-21-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -19,15 +19,11 @@ This starter wires a production-ready consistent-hash ring into your Spring Boot
 
 ## Quick Start
 
-### 1. Install (local, until Maven Central release)
+### 1. Add the dependency
 
-```bash
-git clone https://github.com/AKSHAT-KUMAR-GUPTA07/spring-boot-starter-consistent-hashing.git
-cd spring-boot-starter-consistent-hashing
-mvn install
-```
+Available on **[Maven Central](https://central.sonatype.com/artifact/io.github.akshat-kumar-gupta07/consistent-hashing-spring-boot-starter)** — no extra repository configuration needed.
 
-### 2. Add the dependency
+**Maven:**
 
 ```xml
 <dependency>
@@ -37,7 +33,13 @@ mvn install
 </dependency>
 ```
 
-### 3. Declare your nodes
+**Gradle:**
+
+```groovy
+implementation 'io.github.akshat-kumar-gupta07:consistent-hashing-spring-boot-starter:0.2.0'
+```
+
+### 2. Declare your nodes
 
 ```properties
 consistent-hashing.virtual-nodes=150
@@ -58,7 +60,7 @@ consistent-hashing.nodes[2].port=6379
 consistent-hashing.nodes[2].multiplier=1.0
 ```
 
-### 4. Route a key
+### 3. Route a key
 
 **Option A — inject the ring directly:**
 
