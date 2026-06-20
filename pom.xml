@@ -19,18 +19,25 @@
 	<version>0.2.0</version>
 	<name>consistent-hashing-spring-boot-starter</name>
 	<description>Client-side consistent-hash sharding and routing for Spring Boot 3</description>
-	<url/>
+	<url>https://github.com/AKSHAT-KUMAR-GUPTA07/spring-boot-starter-consistent-hashing</url>
 	<licenses>
-		<license/>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
 	</licenses>
 	<developers>
-		<developer/>
+		<developer>
+			<id>akshat-kumar-gupta07</id>
+			<name>Akshat Kumar Gupta</name>
+			<email>akshatylm2003@gmail.com</email>
+		</developer>
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:https://github.com/AKSHAT-KUMAR-GUPTA07/spring-boot-starter-consistent-hashing.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/AKSHAT-KUMAR-GUPTA07/spring-boot-starter-consistent-hashing.git</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/AKSHAT-KUMAR-GUPTA07/spring-boot-starter-consistent-hashing</url>
 	</scm>
 	<properties>
 		<maven.compiler.release>21</maven.compiler.release>
@@ -102,6 +109,55 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
+			</plugin>
+
+			<!-- Sources jar — Central requires it -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals><goal>jar-no-fork</goal></goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Javadoc jar — Central requires it; also feeds javadoc.io -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.7.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals><goal>jar</goal></goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- GPG signing — signs every artifact with your key -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>3.2.4</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals><goal>sign</goal></goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Central Portal uploader -->
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.11.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+					<autoPublish>false</autoPublish>
+				</configuration>
 			</plugin>
 
 		</plugins>
