@@ -331,13 +331,6 @@ mvn test
 
 ---
 
-## Roadmap
-
-- **v0.2** ✅ — dynamic node add/remove at runtime (`updateNodes`), `NodeProvider` SPI for discovery-backed seeding, membership actuator endpoint (`GET /actuator/hashring`), and a JMH `route()` benchmark.
-- **v0.3** — load-distribution endpoint (`GET /actuator/hashring/distribution`) showing the share of the ring each node owns; MD5-vs-XXH3 and `updateNodes` rebuild benchmarks; hybrid-ring zero-downtime migration coordinator (pull-based background key migration during topology changes).
-
----
-
 ## License
 
 MIT — see [LICENSE](LICENSE).
