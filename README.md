@@ -15,6 +15,15 @@ Distributing load across a pool of nodes (cache servers, shards, workers) with a
 
 This starter wires a production-ready consistent-hash ring into your Spring Boot application context. Declare your nodes in `application.properties`, inject the ring (or use the `@ConsistentHashRouted` annotation), and you're routing. Membership can change at runtime without a restart, and the live ring is observable over an actuator endpoint.
 
+> **Where this came from.** I built a real-time thumbnail-replication platform that had to add
+> cache nodes without cold-flushing every key. Plain modulo hashing would have remapped
+> almost 100% of keys on every scale-out; a consistent-hash ring holds it to `~1/N` —
+> about 25% at 3 nodes, about 1% at 100. This library is that routing layer, extracted.
+>
+> The full design — Redis Streams replication, zero-downtime failover, and the trade-offs
+> behind each decision — is written up in
+> **[It's Just Thumbnails. Until It Isn't.](https://dev.to/akshat_kumargupta_ac6c1b/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)**
+
 ---
 
 ## Quick Start
@@ -315,6 +324,10 @@ Adding or removing a physical node only remaps the keys that fell between that n
 
 The ring is held in a `volatile` reference and mutated copy-on-write: `updateNodes(...)` builds a new ring and swaps it in, so `route(...)` reads are lock-free and always consistent.
 
+For how these mechanics behave in a live system under load — including what the copy-on-write
+swap buys you during a node failure, and what still had to be solved outside the ring — see
+[It's Just Thumbnails. Until It Isn't.](https://dev.to/akshat_kumargupta_ac6c1b/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)
+
 ---
 
 ## Building Locally
@@ -337,4 +350,4 @@ MIT — see [LICENSE](LICENSE).
 
 ---
 
-*Built by [Akshat Kumar Gupta](https://github.com/AKSHAT-KUMAR-GUPTA07)*
+*Built by [Akshat Kumar Gupta](https://github.com/AKSHAT-KUMAR-GUPTA07) · [Read the deep-dive on dev.to](https://dev.to/akshat_kumargupta_ac6c1b/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)*
