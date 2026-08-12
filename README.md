@@ -22,7 +22,7 @@ This starter wires a production-ready consistent-hash ring into your Spring Boot
 >
 > The full design — Redis Streams replication, zero-downtime failover, and the trade-offs
 > behind each decision — is written up in
-> **[It's Just Thumbnails. Until It Isn't.](https://dev.to/akshat_kumargupta_ac6c1b/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)**
+> **[It's Just Thumbnails. Until It Isn't.](https://dev.to/akshat-kumar-gupta/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)**
 
 ---
 
@@ -326,7 +326,7 @@ The ring is held in a `volatile` reference and mutated copy-on-write: `updateNod
 
 For how these mechanics behave in a live system under load — including what the copy-on-write
 swap buys you during a node failure, and what still had to be solved outside the ring — see
-[It's Just Thumbnails. Until It Isn't.](https://dev.to/akshat_kumargupta_ac6c1b/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)
+[It's Just Thumbnails. Until It Isn't.](https://dev.to/akshat-kumar-gupta/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)
 
 ---
 
@@ -350,4 +350,4 @@ MIT — see [LICENSE](LICENSE).
 
 ---
 
-*Built by [Akshat Kumar Gupta](https://github.com/AKSHAT-KUMAR-GUPTA07) · [Read the deep-dive on dev.to](https://dev.to/akshat_kumargupta_ac6c1b/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)*
+*Built by [Akshat Kumar Gupta](https://github.com/AKSHAT-KUMAR-GUPTA07) · [Read the deep-dive on dev.to](https://dev.to/akshat-kumar-gupta/its-just-thumbnails-until-it-isnt-heres-the-distributed-system-i-built-to-fix-that-429b)*
