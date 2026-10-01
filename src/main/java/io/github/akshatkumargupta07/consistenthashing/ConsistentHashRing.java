@@ -25,7 +25,7 @@ public class ConsistentHashRing {
 
     private void hashRing(List<Node> nodes, TreeMap<Long, Node> targetRing) {
         for (Node node : nodes) {
-            for (int i = 0; i < (int) (virtualNodes * Math.ceil(node.multiplier())); i++) {
+            for (int i = 0; i < (int) Math.ceil((virtualNodes * node.multiplier())); i++) {
                 long position = hash(node.id() + "-vnode-" + i);
                 targetRing.put(position, node);
             }
