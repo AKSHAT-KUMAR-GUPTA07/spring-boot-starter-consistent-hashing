@@ -38,14 +38,14 @@ Available on **[Maven Central](https://central.sonatype.com/artifact/io.github.a
 <dependency>
     <groupId>io.github.akshat-kumar-gupta07</groupId>
     <artifactId>consistent-hashing-spring-boot-starter</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 </dependency>
 ```
 
 **Gradle:**
 
 ```groovy
-implementation 'io.github.akshat-kumar-gupta07:consistent-hashing-spring-boot-starter:0.2.0'
+implementation 'io.github.akshat-kumar-gupta07:consistent-hashing-spring-boot-starter:0.2.1'
 ```
 
 ### 2. Declare your nodes
